@@ -3,12 +3,11 @@ import { createSimilarOffers } from './data.js';
 const templateCard = document.querySelector('#card').content;
 const newCard = templateCard.querySelector('.popup');
 
+const cardFragment = document.createDocumentFragment();
 const mapCanvas = document.querySelector('.map__canvas');
-
 
 const similarCards = createSimilarOffers(1);
 
-const cardFragment = document.createDocumentFragment();
 
 similarCards.forEach(({ offer, author }) => {
   const cardElement = newCard.cloneNode(true);
@@ -32,13 +31,13 @@ similarCards.forEach(({ offer, author }) => {
   timePopup.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
   featuresPopup.innerHTML = offer.features.map(el => {
     return `
-    <li class="popup__feature popup__feature--${el}"></li>
+      <li class="popup__feature popup__feature--${el}"></li>
     `;
   }).join('');
   descPopup.textContent = offer.description;
   photosPopup.innerHTML = offer.photos.map(el => {
     return `
-    <img src="${el}" class="popup__photo" width="45" height="40" alt="Фотография жилья"></img>
+      <img src="${el}" class="popup__photo" width="45" height="40" alt="Фотография жилья"></img>
     `
   }).join('');
   avatarPopup.src = author.avatar;
