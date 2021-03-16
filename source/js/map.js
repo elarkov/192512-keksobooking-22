@@ -1,13 +1,12 @@
 import { createPopup } from './popup-сard.js';
 
-const form = document.querySelector('.ad-form');
-const formFilter = document.querySelector('.map__filters');
-const formChildren = form.children;
-const formElements = Array.from(formChildren);
-const formFilterChildren = formFilter.children;
-const formFilterElements = Array.from(formFilterChildren);
 const LAT = 35.6895000;
 const LNG = 139.6917100;
+const form = document.querySelector('.ad-form');
+
+const formChildren = form.children;
+const formElements = Array.from(formChildren);
+
 const map = L.map('map-canvas');
 const smallIcon = L.icon({
   iconUrl: 'img/pin.svg',
@@ -18,7 +17,7 @@ const smallIcon = L.icon({
 let markersGroup = L.layerGroup().addTo(map);
 
 /*функция создает массив меток*/
-const createMarks = function (offers) {
+const createMarks = (offers) => {
   offers.forEach(offer => {
   /*global L:readonly*/
     const marker = L.marker(
@@ -43,16 +42,15 @@ const removeMarker = () => {
 };
 
 /*функция добавляет класс .ad-form--disabled и атрибут disabled */
-const addElementDisabled = function(classEl, elems) {
+const addElementDisabled = (classEl, elems) => {
   classEl.classList.add('ad-form--disabled');
   elems.forEach(el => {
     el.setAttribute('disabled', 'true');
   });
 };
 addElementDisabled(form, formElements);
-addElementDisabled(formFilter, formFilterElements);
 
-const removeElementDisabled = function (classEl, elems) {
+const removeElementDisabled = (classEl, elems) => {
   classEl.classList.remove('ad-form--disabled');
   elems.forEach(el => {
     el.removeAttribute('disabled');
@@ -61,7 +59,6 @@ const removeElementDisabled = function (classEl, elems) {
 
 map.on('load', () => {
   removeElementDisabled(form, formElements);
-  removeElementDisabled(formFilter, formFilterElements);
 })
   .setView({
     lat: LAT,
@@ -118,4 +115,4 @@ const setInitStartPin = () => {
   addAddress(LAT, LNG);
 };
 
-export { createMarks, setInitStartPin, removeMarker };
+export { createMarks, setInitStartPin, removeMarker, removeElementDisabled, addElementDisabled };

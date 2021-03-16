@@ -12,7 +12,11 @@ const showPopup = (id, className) => {
       document.removeEventListener('keydown', onSend);
     }
   };
+
   document.addEventListener('keydown', onSend);
+  cardElement.addEventListener('click', function () {
+    cardElement.remove();
+  });
 };
 
 const showMsg = () => {
@@ -23,4 +27,8 @@ const showError = () => {
   showPopup('#error', '.error');
 };
 
-export { showMsg, showError };
+const showErrorData = () => {
+  showPopup('#data', '.error');
+};
+
+export { showMsg, showError, showErrorData };

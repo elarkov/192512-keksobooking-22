@@ -1,14 +1,21 @@
-import { createMarks, removeMarker } from './map.js';
+import { createMarks, removeMarker, removeElementDisabled, addElementDisabled } from './map.js';
 import { createFetch } from './create-fetch.js';
+import { showErrorData } from './show-message.js';
 
 const filterForm = document.querySelector('.map__filters');
 const typeHouse = filterForm.querySelector('#housing-type');
 const typePrice = filterForm.querySelector('#housing-price');
 const typeRoom = filterForm.querySelector('#housing-rooms');
 const typeGuest = filterForm.querySelector('#housing-guests');
+const formFilter = document.querySelector('.map__filters');
+const formFilterChildren = formFilter.children;
+const formFilterElements = Array.from(formFilterChildren);
 
 const SIMILAR_OFFER_COUNT = 10;
 const DELAY = 500;
+
+addElementDisabled(formFilter, formFilterElements);
+
 
 const filterPrice = (offer, price) => {
   if (price === 'any') {
@@ -67,19 +74,28 @@ const filterOffers = (offers) => {
   return elems;
 };
 
+
 let offers = [];
 
-const fetchData = createFetch((data) => {
+createFetch(
+  (data) => {
   /*global _:readonly*/
   offers = data;
+  removeElementDisabled(formFilter, formFilterElements);
   createMarks(offers.slice(0, SIMILAR_OFFER_COUNT));
   filterForm.addEventListener('change', _.debounce(() => {
     const filterData = filterOffers(offers);
     removeMarker();
     createMarks(filterData.slice(0, SIMILAR_OFFER_COUNT));
   }, DELAY));
-});
-fetchData();
+  }, () => {
+    showErrorData();
+  },
+);
+
+export { offers, SIMILAR_OFFER_COUNT };
+
+
 
 
 
