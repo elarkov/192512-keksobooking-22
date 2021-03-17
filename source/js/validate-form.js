@@ -13,7 +13,6 @@ const capacityGuests = mainForm.querySelectorAll('#capacity option');
 const formFilter = document.querySelector('.map__filters');
 const resetButton = document.querySelector('.ad-form__reset');
 
-
 const typeApartment = {
   bungalow: 0,
   flat: 1000,
@@ -70,13 +69,10 @@ timeOut.addEventListener('change', () => {
 });
 
 const setDisabledOption = () => {
-  capacityGuests.forEach(el => {
-    el.removeAttribute('selected');
-    el.disabled = true;
-    if (numberRoom[roomNumber.value].includes(el.value)) {
-      el.setAttribute('selected', true);
-      el.disabled = false;
-    }
+  capacityGuests.forEach((el) => {
+    const isAvailable = numberRoom[roomNumber.value].includes(el.value);
+    el.selected = isAvailable;
+    el.disabled = !isAvailable;
   });
 };
 

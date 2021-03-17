@@ -18,7 +18,7 @@ let markersGroup = L.layerGroup().addTo(map);
 
 /*функция создает массив меток*/
 const createMarks = (offers) => {
-  offers.forEach(offer => {
+  offers.forEach((offer) => {
   /*global L:readonly*/
     const marker = L.marker(
       {
@@ -44,16 +44,16 @@ const removeMarker = () => {
 /*функция добавляет класс .ad-form--disabled и атрибут disabled */
 const addElementDisabled = (classEl, elems) => {
   classEl.classList.add('ad-form--disabled');
-  elems.forEach(el => {
-    el.setAttribute('disabled', 'true');
+  elems.forEach((el) => {
+    el.disabled = true;
   });
 };
 addElementDisabled(form, formElements);
 
 const removeElementDisabled = (classEl, elems) => {
   classEl.classList.remove('ad-form--disabled');
-  elems.forEach(el => {
-    el.removeAttribute('disabled');
+  elems.forEach((el) => {
+    el.disabled = false;
   });
 };
 

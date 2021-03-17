@@ -14,7 +14,7 @@ const showPopup = (id, className) => {
   };
 
   document.addEventListener('keydown', onSend);
-  cardElement.addEventListener('click', function () {
+  cardElement.addEventListener('click', () => {
     cardElement.remove();
   });
 };
